@@ -1,0 +1,35 @@
+plugins {
+    id "com.microsoft.azure.azurefunctions" version "1.7.0"
+}
+apply plugin: "java"
+
+group 'com.k3rcaft'
+version '1.0.0-SNAPSHOT'
+
+dependencies {
+    implementation 'com.microsoft.azure.functions:azure-functions-java-library:1.4.2'
+}
+
+sourceCompatibility = '11'
+targetCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+azurefunctions {
+    subscription = System.getenv("SUBSCRIPTION")
+    resourceGroup = System.getenv("RESOURCE_GROUP")
+    appName = System.getenv("APP_NAME")
+    pricingTier = 'Consumption'
+    // refers https://github.com/microsoft/azure-maven-plugins/tree/develop/azure-functions-maven-plugin#supported-pricing-tiers for all valid values
+    region = 'southeastasia'
+    runtime {
+        os = 'windows'
+        javaVersion = 'Java 11'
+    }
+    // appSettings {
+    //    key = 'value'
+    // }
+    // localDebug = "transport=dt_socket,server=y,suspend=n,address=5005"
+}
